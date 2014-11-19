@@ -11,7 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105082508) do
+ActiveRecord::Schema.define(version: 20141119073107) do
+
+  create_table "channels", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "logo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_profiles", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "profile_pic"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_profiles", ["company_id"], name: "index_user_profiles_on_company_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -30,5 +55,30 @@ ActiveRecord::Schema.define(version: 20141105082508) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "video_channels", force: true do |t|
+    t.integer  "video_id"
+    t.integer  "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "video_channels", ["channel_id"], name: "index_video_channels_on_channel_id"
+  add_index "video_channels", ["video_id"], name: "index_video_channels_on_video_id"
+
+  create_table "videos", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "thumb"
+    t.string   "content"
+    t.string   "comments"
+    t.string   "tags"
+    t.string   "ratings"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "videos", ["user_id"], name: "index_videos_on_user_id"
 
 end

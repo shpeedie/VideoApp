@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :channels
+
+  resources :videos
+
+  resources :companies
+
+  resources :user_profiles
+
   # get 'home/index'
 
   devise_for :users
